@@ -1,28 +1,14 @@
 class Solution:
-    def isPalindrome(self, s: str) -> bool:
-        lptr,rptr=0,len(s)-1
+    def maxArea(self, height: List[int]) -> int:
+        res=0
+        lptr,rptr=0,len(height)-1
         while lptr<rptr:
-            while lptr<rptr and not self.alphanum(s[lptr]):
+            area=(rptr-lptr)*min(height[lptr],height[rptr])
+            res=max(area,res)
+            if height[lptr]<height[rptr]:
                 lptr+=1
-            while rptr>lptr and not self.alphanum(s[rptr]):
+            elif height[rptr]<height[lptr]:
                 rptr-=1
-            if s[lptr].lower()!=s[rptr].lower():
-                return False
-            lptr+=1
-            rptr-=1
-        return True
-    
-    def alphanum(self,c):
-        return (ord('A')<=ord(c)<=ord('Z') or
-        ord('a')<=ord(c)<=ord('z')or
-        ord('0')<=ord(c)<=ord('9'))
-
-
-         
-         
-         
-         
-         
-         
-
-
+            else:
+                rptr-=1
+        return res
